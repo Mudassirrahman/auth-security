@@ -22,7 +22,8 @@ export class AuthController {
     return this.authService.register(CreateUserDto);
   }
 
-  @UseGuards(AuthGuard)
+ // @UseGuards(AuthGuard)
+  // @Public()
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
