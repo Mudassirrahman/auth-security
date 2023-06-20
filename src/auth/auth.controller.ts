@@ -16,6 +16,7 @@ export class AuthController {
     return this.authService.signIn(signinDto);
   }
 
+  @Public()
   @HttpCode(HttpStatus.CREATED)
   @Post('register')
   register(@Body() CreateUserDto: CreateUserDto): Promise<Partial<UserEntity>> {
