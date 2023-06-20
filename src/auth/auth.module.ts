@@ -10,8 +10,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
   imports: [
     UserModule,
     JwtModule.register({
-      global: true,
-      secret: 'hello',
+      secret: 'hello', // Replace with your actual secret key
       signOptions: { expiresIn: '5m' },
     }),
   ],

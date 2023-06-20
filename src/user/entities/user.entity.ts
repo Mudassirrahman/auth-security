@@ -19,7 +19,7 @@ export class UserEntity extends EntityBase{
     @Column()
     age: number;
 
-    
+   
 
 
 }

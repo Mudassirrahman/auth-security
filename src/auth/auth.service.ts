@@ -7,8 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService ,
-    private readonly jwtService: JwtService) {}
+  constructor(private userService: UserService, private readonly jwtService: JwtService) {}
 
   async signIn(signinDto: SigninDto): Promise<any> {
     const { username, password: pass } = signinDto;
@@ -19,12 +18,16 @@ export class AuthService {
     const { password, ...result } = user;
 
     const payload = { id: user.id, username: user.firstname };
-    const token = await this.jwtService.signAsync(payload, {
+    const accessToken = await this.jwtService.signAsync(payload, {
       secret: "hello",
-      expiresIn: "5m",
-    })
-    ;
-    return token;
+      expiresIn: "5m"
+    });
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: "hello-world",
+      expiresIn: '7d',
+    });
+
+    return { accessToken, refreshToken };
   }
 
   async register(createUserDto: CreateUserDto): Promise<Partial<UserEntity>> {

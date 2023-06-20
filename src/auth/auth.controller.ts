@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SigninDto } from './dtos/signin.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -21,7 +12,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signinDto: SigninDto): Promise<Partial<UserEntity>> {
+  signIn(@Body() signinDto: SigninDto): Promise<any> {
     return this.authService.signIn(signinDto);
   }
 
@@ -31,8 +22,7 @@ export class AuthController {
     return this.authService.register(CreateUserDto);
   }
 
-  // @UseGuards(AuthGuard)
-  // @Public()
+  @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
