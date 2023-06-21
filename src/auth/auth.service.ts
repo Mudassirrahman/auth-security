@@ -6,22 +6,29 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class AuthService {
   private revokedTokens: string[] = [];
+
   constructor(
     private userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
   async signIn(signinDto: SigninDto): Promise<any> {
-    const { username, password: pass } = signinDto;
+    const { username, password } = signinDto;
     const user = await this.userService.findOne(username);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-    const { password, ...result } = user;
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const { password: _, ...result } = user;
 
     const payload = { id: user.id, username: user.firstname };
     const accessToken = await this.jwtService.signAsync(payload, {
@@ -36,7 +43,6 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-
   async register(createUserDto: CreateUserDto): Promise<Partial<UserEntity>> {
     const { password, ...userData } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
@@ -44,8 +50,6 @@ export class AuthService {
     const { password: _, ...result } = user;
     return result;
   }
-  
-
 
   async signOut(token: string): Promise<string> {
     this.revokeToken(token);
