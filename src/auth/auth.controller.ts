@@ -30,15 +30,6 @@ export class AuthController {
     return req.user;
   }
 
-  // @Public()
-  // @UseGuards(AuthGuard)
-  // @HttpCode(HttpStatus.OK)
-  // @Post('logout')
-  // signOut(@Request() req): Promise<void> {
-  //   const token = req.headers.authorization?.split(' ')[1]; // Extract the token from the Authorization header
-  //   return this.authService.signOut(token);
-  // }
-  
   @Public()
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)

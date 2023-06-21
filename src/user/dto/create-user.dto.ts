@@ -42,9 +42,4 @@ export class CreateUserDto {
   @IsNumber()
   age: number;
 
-//   public isPasswordMatch(): void {
-//     if (this.password !== this.confirmPassword) {
-//       throw new BadRequestException("password doesn't match confirm password");
-//     }
-//   }
 }
