@@ -83,9 +83,11 @@ export class AuthService {
   //   // You can simply discard the token on the client side to achieve a signout effect
   //   // If you want to add some cleanup tasks, you can do so here
   // }
-  async signOut(token: string): Promise<void> {
-    this.revokeToken(token); // Revoke the token
+  async signOut(token: string): Promise<string> {
+    this.revokeToken(token);
     // Additional cleanup tasks or logic...
+
+    return 'Logout successful'; // Return the success message
   }
 
   private revokeToken(token: string): void {

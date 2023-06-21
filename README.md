@@ -1,3 +1,25 @@
+# How to Run
+
+## step 1 : Register user
+Firt you need to add user data into database, there is 6 field to fill up
+first name,
+lastname,
+email,
+age,
+password,
+confirmpassword
+fill this all on this api : http://localhost:3000/auth/register in JSON formate.
+this acction will add user into database.
+
+## STEP 2 :  LOGIN USER
+ON THIS API : http://localhost:3000/auth/login  you can login user by entring firstname and password you can use JSON formate and after geting access token you can also login by  bearer token method.
+
+## step 3 : profile view
+on this api http://localhost:3000/auth/profile you can check user id and user name when you put token in to bearer token method.
+
+## step 4 : Logout
+by useing this api  http://localhost:3000/auth/logout  you can logout user and after logout you can not get user data when you use step number 3 # profile view but if you login again then you will b able to fine user data in profile.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
