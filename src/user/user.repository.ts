@@ -11,6 +11,9 @@ export class UserRepository extends Repository<UserEntity>{
     async findUserDetailsByUsername(firstname: string): Promise<UserEntity>{
         return this.findOneBy({firstname});
     }
+    async findUserDetailsByEmail(email: string): Promise<UserEntity>{
+      return this.findOneBy({email});
+  }
     async createUser(user: UserEntity): Promise<UserEntity> {
         try {
           return await this.save(user);
